@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para MariaJose:) 💖</title>
+<title>Mi 14 💖</title>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -33,4 +33,236 @@ body{
 
 .section{
   position:absolute;
-  wid
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.8s ease;
+}
+
+.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+h1{
+  font-family:'Great Vibes',cursive;
+  font-size:3rem;
+  margin-bottom:30px;
+}
+
+.buttons{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+button{
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+.yes{
+  background:white;
+  color:#ff2e63;
+  font-weight:bold;
+}
+
+.no{
+  background:#ff2e63;
+  color:white;
+}
+
+/* Cards */
+.card-container{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:30px;
+}
+
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  padding:25px;
+  border-radius:20px;
+  width:220px;
+  cursor:pointer;
+  transition:0.4s;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 15px 35px rgba(0,0,0,0.4);
+}
+
+.card h3{
+  margin-top:10px;
+}
+
+.fade-in{
+  animation:fadeIn 1s forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* Corazones flotando */
+.heart{
+  position:absolute;
+  bottom:-50px;
+  font-size:20px;
+  animation:floatUp 6s linear infinite;
+  opacity:0.7;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0) scale(1);}
+  100%{transform:translateY(-110vh) scale(1.5);}
+}
+
+@media(max-width:768px){
+  h1{font-size:2.2rem;}
+  .card{width:90%;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Pantalla principal -->
+<div id="home" class="section active">
+  <h1>¿Quieres ser Mi 14 f?</h1>
+  <div class="buttons">
+    <button class="yes" onclick="showSection('special')">💖 Sí</button>
+    <button class="no" id="noBtn">💔 No</button>
+  </div>
+</div>
+
+<!-- Sección mensaje especial -->
+<div id="special" class="section">
+  <h1 class="fade-in">Aquí irá el mensaje especial 💌</h1>
+  <button class="yes fade-in" onclick="showSection('menu')">Siguiente sorpresa ✨</button>
+</div>
+
+<!-- Sección menú -->
+<div id="menu" class="section">
+  <h1>💕 Ahora elige qué quieres que te prepare ese día</h1>
+  <div class="card-container">
+    <div class="card" onclick="foodChoice('🍝 Lasaña')">
+      <div style="font-size:40px;">🍝</div>
+      <h3>Lasaña</h3>
+    </div>
+    <div class="card" onclick="foodChoice('🍔 Hamburguesas con papas')">
+      <div style="font-size:40px;">🍔</div>
+      <h3>Hamburguesas</h3>
+    </div>
+    <div class="card" onclick="foodChoice('🍕 Pizza')">
+      <div style="font-size:40px;">🍕</div>
+      <h3>Pizza</h3>
+    </div>
+  </div>
+  <h2 id="foodMessage" style="margin-top:30px;"></h2>
+</div>
+
+<!-- Sección No -->
+<div id="noSection" class="section">
+  <h1>Creo que apretaste mal el Sí 😏</h1>
+  <h1 style="margin-top:20px;">¿Quieres ser Mi 14 f?</h1>
+  <div class="buttons" style="margin-top:20px;">
+    <button class="yes" onclick="showSection('special')">💖 Sí</button>
+    <button class="yes" onclick="showSection('special')">💖 Sí</button>
+  </div>
+</div>
+
+<script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(sec=>{
+    sec.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+}
+
+/* BOTÓN NO ULTRA DIFÍCIL */
+const noBtn = document.getElementById("noBtn");
+
+function moveButton(){
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
+
+document.addEventListener("mousemove", (e) => {
+  const rect = noBtn.getBoundingClientRect();
+  const distance = Math.hypot(
+    e.clientX - (rect.left + rect.width/2),
+    e.clientY - (rect.top + rect.height/2)
+  );
+
+  if(distance < 150){
+    moveButton();
+  }
+});
+
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  moveButton();
+});
+
+noBtn.addEventListener("click", ()=>{
+  showSection("noSection");
+});
+
+/* ELECCIÓN DE COMIDA */
+function foodChoice(food){
+  const msg=document.getElementById("foodMessage");
+  msg.innerText="Excelente elección ❤️ " + food;
+  msg.classList.add("fade-in");
+  createHearts(20);
+}
+
+/* CORAZONES */
+function createHearts(num=5){
+  for(let i=0;i<num;i++){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  }
+}
+
+setInterval(()=>createHearts(1),800);
+</script>
+
+</body>
+</html>
