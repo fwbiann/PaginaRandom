@@ -44,12 +44,154 @@
       opacity: 1;
       pointer-events: auto;
     }
-    h1 {
+
+    /* === SOBRE / CARTA === */
+    #home .envelope-container {
+      perspective: 1200px;
+      width: 320px;
+      height: 240px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .envelope {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.2s ease;
+    }
+
+    .envelope.open {
+      transform: rotateX(30deg) translateY(-40px);
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to bottom, #ff8fab, #ff4d6d);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 1.2s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      background: #fff0f5;
+      border-radius: 0 0 20px 20px;
+      box-shadow: inset 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .seal {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: #ff2e63;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .letter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      width: 90%;
+      height: 75%;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+      padding: 30px 25px;
+      color: #333;
+      opacity: 0;
+      transition: all 1.4s ease 0.4s;
+      text-align: left;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      pointer-events: none;
+    }
+
+    .envelope.open .letter {
+      opacity: 1;
+      transform: translate(-50%, -140%) scale(1.02);
+    }
+
+    .letter h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.2rem;
+      color: #ff2e63;
+      text-align: center;
+      margin: 20px 0 30px;
+      line-height: 1;
+    }
+
+    .letter p {
+      margin-bottom: 1.2em;
+    }
+
+    .letter .big-question {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.6rem;
+      color: #ff0844;
+      text-align: center;
+      margin: 40px 0 30px;
+      line-height: 1.1;
+    }
+
+    .yes-btn-big {
+      display: block;
+      margin: 30px auto 0;
+      padding: 18px 60px;
+      font-size: 1.5rem;
+      background: #ff2e63;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .yes-btn-big:hover {
+      transform: scale(1.12);
+      background: #ff0844;
+    }
+
+    .instruction {
+      margin-top: 30px;
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+
+    /* Otros estilos existentes (adaptados) */
+    h1:not(.letter h2):not(.letter .big-question) {
       font-family: 'Great Vibes', cursive;
       font-size: 3.8rem;
       margin-bottom: 30px;
-      line-height: 1.1;
     }
+
     .buttons {
       display: flex;
       gap: 30px;
@@ -57,6 +199,7 @@
       justify-content: center;
       align-items: center;
     }
+
     button {
       padding: 14px 36px;
       border: none;
@@ -66,25 +209,28 @@
       transition: all 0.3s ease;
       box-shadow: 0 10px 25px rgba(0,0,0,0.25);
     }
+
     button:hover {
       transform: scale(1.08);
       box-shadow: 0 15px 35px rgba(0,0,0,0.35);
     }
+
     .yes {
       background: white;
       color: #ff2e63;
       font-weight: bold;
-      padding: 18px 48px;          /* Más grande que el No */
+      padding: 18px 48px;
       font-size: 1.25rem;
     }
+
     .no {
       background: #ff2e63;
       color: white;
-      padding: 14px 36px;           /* Tamaño normal */
-      position: relative;           /* Cambiado de fixed → relative para que empiece al lado */
+      padding: 14px 36px;
+      position: relative;
       transition: all 0.25s ease-out;
     }
-    /* Cards */
+
     .card-container {
       display: flex;
       gap: 20px;
@@ -92,6 +238,7 @@
       justify-content: center;
       margin-top: 30px;
     }
+
     .card {
       background: rgba(255,255,255,0.12);
       backdrop-filter: blur(10px);
@@ -102,21 +249,25 @@
       transition: all 0.4s ease;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
+
     .card:hover {
       transform: translateY(-12px) scale(1.06);
       box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     }
+
     .card h3 {
       margin-top: 12px;
     }
+
     .fade-in {
       animation: fadeIn 1s forwards;
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Corazones flotando */
+
     .heart {
       position: absolute;
       bottom: -60px;
@@ -125,10 +276,12 @@
       opacity: 0.8;
       pointer-events: none;
     }
+
     @keyframes floatUp {
       0% { transform: translateY(0) scale(1) rotate(0deg); }
       100% { transform: translateY(-120vh) scale(1.4) rotate(360deg); }
     }
+
     #confirmBtn {
       margin-top: 35px;
       padding: 16px 48px;
@@ -138,38 +291,45 @@
       font-weight: 600;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
+
     #confirmBtn:hover {
       transform: scale(1.1);
     }
+
     @media (max-width: 768px) {
-      h1 { font-size: 2.8rem; }
-      .card { width: 85%; max-width: 280px; }
-      button { padding: 14px 32px; font-size: 1.05rem; }
-      .yes { padding: 16px 44px; font-size: 1.2rem; }
-      .buttons { gap: 20px; }
+      .envelope-container { width: 280px; height: 210px; }
+      .letter { padding: 20px 18px; font-size: 0.98rem; }
+      .letter h2 { font-size: 2.8rem; }
+      .letter .big-question { font-size: 3rem; }
+      h1:not(.letter h2):not(.letter .big-question) { font-size: 2.8rem; }
+      .yes-btn-big { padding: 16px 50px; font-size: 1.35rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Pantalla principal -->
+  <!-- Pantalla principal - Carta -->
   <div id="home" class="section active">
-    <h1>¿Quieres ser Mi 14 f?</h1>
-    <div class="buttons">
-      <button class="yes" onclick="showSection('special')">💖 Sí</button>
-      <button class="no" id="noBtn">💔 No</button>
+    <div class="envelope-container" onclick="openEnvelope()">
+      <div class="envelope" id="envelope">
+        <div class="flap"></div>
+        <div class="envelope-body"></div>
+        <div class="seal">💌</div>
+      </div>
+      <div class="letter" id="letter">
+        <h2>Hola Maria Jose</h2>
+        <p>Sé que llevamos poco tiempo conociéndonos y que capaz es muy rápido pasar una fecha importante juntos.</p>
+        <p>Sé que suena un poco cringe todo lo que estoy escribiendo, pero sobre todo sé que me encantaría demasiado que estés conmigo ese día, así como quiero seguir conociendo todo sobre ti</p>
+        <div class="big-question">¿Te gustaría pasar el 14 de febrero conmigo? 💕</div>
+        <button class="yes-btn-big" onclick="event.stopPropagation(); showSectionAfterYes()">💖 SÍ</button>
+      </div>
     </div>
+    <div class="instruction">Haz clic en el sobre para abrir tu carta 💌</div>
   </div>
 
-  <!-- Sección mensaje especial -->
-  <div id="special" class="section">
-    <h1 class="fade-in">Aquí irá el mensaje especial 💌</h1>
-    <button class="yes fade-in" onclick="showSection('menu')">Siguiente sorpresa ✨</button>
-  </div>
-
-  <!-- Sección menú -->
+  <!-- Sección menú (transición después del sí) -->
   <div id="menu" class="section">
-    <h1>💕 Es Hora de elegir el menú</h1>
+    <h1 class="fade-in">Ahora... es hora de elegir el menú de ese día 🍽️❤️</h1>
     <div class="card-container">
       <div class="card" onclick="foodChoice('🍝 Lasaña')">
         <div style="font-size:50px;">🍝</div>
@@ -193,15 +353,14 @@
     <h1>Creo que apretaste mal el Sí 😏</h1>
     <h1 style="margin-top:25px;">¿Quieres ser Mi 14 f?</h1>
     <div class="buttons" style="margin-top:25px;">
-      <button class="yes" onclick="showSection('special')">💖 Sí</button>
-      <button class="yes" onclick="showSection('special')">💖 Sí</button>
+      <button class="yes" onclick="showSection('menu')">💖 Sí</button>
+      <button class="yes" onclick="showSection('menu')">💖 Sí</button>
     </div>
   </div>
 
-  <!-- Audio romántico (Die For You - The Weeknd) -->
+  <!-- Audio -->
   <audio id="romanticMusic" loop>
-    <!-- Puedes reemplazar esta URL por otro link directo si lo prefieres -->
-    <source src="https://www.youtube.com/watch?v=JGwWNGJdvx8" type="audio/mpeg">
+    <source src="https://assets.codepen.io/605876/Die+For+You+-+The+Weeknd+(instrumental+example).mp3" type="audio/mpeg">
     Tu navegador no soporta audio.
   </audio>
 
@@ -210,125 +369,114 @@
     const maxEscapes = 3;
     let comidaElegida = "";
 
+    function openEnvelope() {
+      const envelope = document.getElementById('envelope');
+      envelope.classList.add('open');
+      createHearts(15);
+      // Desactivamos el clic en el contenedor para que no vuelva a abrir
+      document.querySelector('#home .envelope-container').onclick = null;
+    }
+
     function showSection(id) {
       document.querySelectorAll('.section').forEach(sec => {
         sec.classList.remove('active');
       });
       document.getElementById(id).classList.add('active');
 
-      // Reproducir música solo al ir a 'special' (cuando dice Sí)
-      if (id === 'special') {
+      if (id === 'menu') {
         const audio = document.getElementById('romanticMusic');
-        audio.volume = 0.20; // Volumen bajo (20%)
-        audio.play().catch(() => {
-          // En algunos navegadores necesita interacción extra → lo intentamos de nuevo en clicks
-          console.log("Reproducción bloqueada, esperando interacción");
-        });
+        audio.volume = 0.20;
+        audio.play().catch(() => console.log("Reproducción bloqueada"));
       }
     }
 
-    // Botón No - lógica de escapes limitados
-    const noBtn = document.getElementById("noBtn");
+    function showSectionAfterYes() {
+      showSection('menu');
+    }
+
+    // Botón No
+    const noBtn = document.createElement('button');
+    noBtn.className = 'no';
+    noBtn.textContent = '💔 No';
+    noBtn.style.marginTop = '30px';
+    noBtn.style.display = 'none'; // Lo mostramos solo si se necesita en otras secciones
+    document.getElementById('noSection').querySelector('.buttons').appendChild(noBtn);
 
     function moveButton() {
       const maxX = window.innerWidth - noBtn.offsetWidth - 60;
       const maxY = window.innerHeight - noBtn.offsetHeight - 60;
       const randomX = Math.random() * maxX;
       const randomY = Math.random() * maxY;
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
-      noBtn.style.transform = "none"; // quitamos translate inicial
+      noBtn.style.left = randomX + 'px';
+      noBtn.style.top = randomY + 'px';
+      noBtn.style.position = 'absolute';
     }
 
-    noBtn.addEventListener("click", (e) => {
+    noBtn.addEventListener('click', () => {
       if (escapeCount < maxEscapes) {
-        e.preventDefault();
         escapeCount++;
         moveButton();
-        createHearts(8); // corazoncitos al escapar
+        createHearts(8);
       } else {
-        // Después de 3 escapes → va a la sección trampa
-        showSection("noSection");
+        // Ya se rindió, podría ir a menú directamente o mantener trampa
       }
     });
 
-    // Movimiento al acercar mouse (PC)
-    document.addEventListener("mousemove", (e) => {
-      if (escapeCount >= maxEscapes) return;
+    document.addEventListener('mousemove', (e) => {
+      if (escapeCount >= maxEscapes || !noBtn.offsetParent) return;
       const rect = noBtn.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY);
-      
-      if (distance < 40) {
-        moveButton();
-      }
+      const dist = Math.hypot(e.clientX - (rect.left + rect.width/2), e.clientY - (rect.top + rect.height/2));
+      if (dist < 140) moveButton();
     });
 
-    // Móvil - touch
-    noBtn.addEventListener("touchstart", (e) => {
-      if (escapeCount >= maxEscapes) return;
-      e.preventDefault();
-      moveButton();
-    });
-
-    noBtn.addEventListener("touchmove", (e) => {
-      if (escapeCount >= maxEscapes) return;
-      e.preventDefault();
-      if (Math.random() > 0.4) moveButton();
-    });
-
-    // Elección de comida
+    // Elección comida
     function foodChoice(food) {
       comidaElegida = food;
-      const msg = document.getElementById("foodMessage");
-      msg.innerText = "Excelente elección ❤️ " + food + " !";
-      msg.classList.remove("fade-in");
+      const msg = document.getElementById('foodMessage');
+      msg.innerText = 'Excelente elección ❤️ ' + food + ' !';
+      msg.classList.remove('fade-in');
       void msg.offsetWidth;
-      msg.classList.add("fade-in");
+      msg.classList.add('fade-in');
       createHearts(25);
-
-      // Mostrar botón de WhatsApp
-      document.getElementById("confirmBtn").style.display = "block";
+      document.getElementById('confirmBtn').style.display = 'block';
     }
 
     function confirmarEleccion() {
       if (!comidaElegida) {
-        alert("¡Primero elegí algo rico! 🍽️");
+        alert('¡Primero elegí algo rico! 🍽️');
         return;
       }
-
       const mensaje = `ola, elegi: ${comidaElegida} ❤️\n¿Me lo preparás? 😘`;
       const numero = "56949279462";
       const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, "_blank");
+      window.open(url, '_blank');
     }
 
     // Corazones
     function createHearts(num = 5) {
       for (let i = 0; i < num; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerText = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (Math.random() * 24 + 16) + "px";
-        heart.style.animationDuration = (Math.random() * 4 + 4) + "s";
-        heart.style.animationDelay = Math.random() * 2 + "s";
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerText = ['💖','❤️','💕','💗','💞'][Math.floor(Math.random()*5)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (Math.random() * 28 + 18) + 'px';
+        heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        heart.style.animationDelay = Math.random() * 3 + 's';
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 8000);
+        setTimeout(() => heart.remove(), 10000);
       }
     }
 
-    // Corazones suaves de fondo
-    setInterval(() => createHearts(1), 900);
+    setInterval(() => createHearts(1), 1100);
 
-    // Posición inicial del botón No (al lado del Sí, centrado en la zona de botones)
+    // Posición inicial botón No (si aparece)
     setTimeout(() => {
-      noBtn.style.position = "relative";
-      noBtn.style.left = "0";
-      noBtn.style.top = "0";
-      noBtn.style.transform = "none";
-    }, 300);
+      if (noBtn) {
+        noBtn.style.position = 'relative';
+        noBtn.style.left = '0';
+        noBtn.style.top = '0';
+      }
+    }, 500);
   </script>
 </body>
 </html>
