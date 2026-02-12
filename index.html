@@ -1,482 +1,382 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sorpresa 💕</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-    body {
-      overflow: hidden;
-      background: linear-gradient(135deg, #ff6b9d, #ff2e63, #ff0844);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
-      color: white;
-      height: 100vh;
-      position: relative;
-    }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .section {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.8s ease;
-    }
-    .active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorpresa 💕</title>
 
-    /* === SOBRE / CARTA === */
-    #home .envelope-container {
-      perspective: 1200px;
-      width: 320px;
-      height: 240px;
-      position: relative;
-      cursor: pointer;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    .envelope {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 1.2s ease;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
-    .envelope.open {
-      transform: rotateX(30deg) translateY(-40px);
-    }
+body{
+  overflow:hidden;
+  background:linear-gradient(135deg,#ff6b9d,#ff2e63,#ff0844);
+  background-size:400% 400%;
+  animation:gradientBG 12s ease infinite;
+  color:white;
+  height:100vh;
+  position:relative;
+}
 
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      background: linear-gradient(to bottom, #ff8fab, #ff4d6d);
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform-origin: top;
-      transition: transform 1.2s ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
 
-    .envelope.open .flap {
-      transform: rotateX(180deg);
-    }
+.section{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .8s ease;
+}
 
-    .envelope-body {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 60%;
-      background: #fff0f5;
-      border-radius: 0 0 20px 20px;
-      box-shadow: inset 0 10px 20px rgba(0,0,0,0.1);
-    }
+.section.active{
+  opacity:1;
+  pointer-events:auto;
+}
 
-    .seal {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      background: #ff2e63;
-      border-radius: 50%;
-      border: 4px solid #fff;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: white;
-      font-family: 'Great Vibes', cursive;
-    }
+/* ====== SOBRE NUEVO ESTILO ====== */
 
-    .letter {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.85);
-      width: 90%;
-      height: 75%;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-      padding: 30px 25px;
-      color: #333;
-      opacity: 0;
-      transition: all 1.4s ease 0.4s;
-      text-align: left;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      pointer-events: none;
-    }
+.envelope-wrapper{
+  perspective:1500px;
+  width:340px;
+  height:260px;
+  position:relative;
+  cursor:pointer;
+}
 
-    .envelope.open .letter {
-      opacity: 1;
-      transform: translate(-50%, -140%) scale(1.02);
-    }
+.envelope{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform 1.2s ease;
+}
 
-    .letter h2 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.2rem;
-      color: #ff2e63;
-      text-align: center;
-      margin: 20px 0 30px;
-      line-height: 1;
-    }
+.envelope.open{
+  transform:rotateX(18deg) translateY(-40px);
+}
 
-    .letter p {
-      margin-bottom: 1.2em;
-    }
+.envelope-body{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:65%;
+  background:linear-gradient(145deg,#ffd6e8,#fff0f6);
+  border-radius:0 0 25px 25px;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
 
-    .letter .big-question {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.6rem;
-      color: #ff0844;
-      text-align: center;
-      margin: 40px 0 30px;
-      line-height: 1.1;
-    }
+.flap{
+  position:absolute;
+  top:0;
+  width:100%;
+  height:55%;
+  background:linear-gradient(to bottom,#ff8fab,#ff4d6d);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top;
+  transition:transform 1.2s ease;
+  border-top-left-radius:25px;
+  border-top-right-radius:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
 
-    .yes-btn-big {
-      display: block;
-      margin: 30px auto 0;
-      padding: 18px 60px;
-      font-size: 1.5rem;
-      background: #ff2e63;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    }
+.envelope.open .flap{
+  transform:rotateX(180deg);
+}
 
-    .yes-btn-big:hover {
-      transform: scale(1.12);
-      background: #ff0844;
-    }
+.seal{
+  position:absolute;
+  top:42%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:70px;
+  height:70px;
+  background:#ff2e63;
+  border-radius:50%;
+  border:4px solid white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  box-shadow:0 5px 20px rgba(0,0,0,.4);
+}
 
-    .instruction {
-      margin-top: 30px;
-      font-size: 1.3rem;
-      opacity: 0.9;
-    }
+/* ====== CARTA ====== */
 
-    /* Otros estilos existentes (adaptados) */
-    h1:not(.letter h2):not(.letter .big-question) {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3.8rem;
-      margin-bottom: 30px;
-    }
+.letter{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(.8);
+  width:92%;
+  height:80%;
+  background:white;
+  border-radius:18px;
+  box-shadow:0 25px 60px rgba(0,0,0,.45);
+  padding:30px 25px;
+  color:#333;
+  opacity:0;
+  transition:all 1.4s ease .4s;
+  text-align:left;
+  pointer-events:none;
+  overflow:auto;
+}
 
-    .buttons {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-    }
+.envelope.open + .letter{
+  opacity:1;
+  transform:translate(-50%,-150%) scale(1.03);
+}
 
-    button {
-      padding: 14px 36px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-    }
+.letter h2{
+  font-family:'Great Vibes',cursive;
+  font-size:3.2rem;
+  color:#ff2e63;
+  text-align:center;
+  margin-bottom:20px;
+}
 
-    button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
-    }
+.letter p{
+  margin-bottom:1.2em;
+  line-height:1.6;
+}
 
-    .yes {
-      background: white;
-      color: #ff2e63;
-      font-weight: bold;
-      padding: 18px 48px;
-      font-size: 1.25rem;
-    }
+.big-question{
+  font-family:'Great Vibes',cursive;
+  font-size:3.4rem;
+  color:#ff0844;
+  text-align:center;
+  margin:35px 0 25px;
+  animation:fadeIn 1.5s ease forwards;
+}
 
-    .no {
-      background: #ff2e63;
-      color: white;
-      padding: 14px 36px;
-      position: relative;
-      transition: all 0.25s ease-out;
-    }
+.yes-btn-big{
+  display:block;
+  margin:20px auto 0;
+  padding:18px 65px;
+  font-size:1.6rem;
+  background:#ff2e63;
+  color:white;
+  border:none;
+  border-radius:60px;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  transition:.3s ease;
+}
 
-    .card-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 30px;
-    }
+.yes-btn-big:hover{
+  transform:scale(1.12);
+  background:#ff0844;
+}
 
-    .card {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(10px);
-      padding: 25px;
-      border-radius: 20px;
-      width: 220px;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    }
+.instruction{
+  margin-top:30px;
+  font-size:1.2rem;
+  opacity:.9;
+}
 
-    .card:hover {
-      transform: translateY(-12px) scale(1.06);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    }
+/* ====== MENU ====== */
 
-    .card h3 {
-      margin-top: 12px;
-    }
+h1{
+  font-family:'Great Vibes',cursive;
+  font-size:3.6rem;
+  margin-bottom:30px;
+}
 
-    .fade-in {
-      animation: fadeIn 1s forwards;
-    }
+.card-container{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:30px;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.card{
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(10px);
+  padding:25px;
+  border-radius:20px;
+  width:220px;
+  cursor:pointer;
+  transition:.4s ease;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
 
-    .heart {
-      position: absolute;
-      bottom: -60px;
-      font-size: 24px;
-      animation: floatUp 7s linear infinite;
-      opacity: 0.8;
-      pointer-events: none;
-    }
+.card:hover{
+  transform:translateY(-12px) scale(1.06);
+}
 
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(1) rotate(0deg); }
-      100% { transform: translateY(-120vh) scale(1.4) rotate(360deg); }
-    }
+#confirmBtn{
+  margin-top:35px;
+  padding:16px 48px;
+  font-size:1.15rem;
+  background:#fff;
+  color:#ff2e63;
+  font-weight:600;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+}
 
-    #confirmBtn {
-      margin-top: 35px;
-      padding: 16px 48px;
-      font-size: 1.15rem;
-      background: #ffffff;
-      color: #ff2e63;
-      font-weight: 600;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
+.heart{
+  position:absolute;
+  bottom:-60px;
+  font-size:24px;
+  animation:floatUp 7s linear infinite;
+  opacity:.8;
+  pointer-events:none;
+}
 
-    #confirmBtn:hover {
-      transform: scale(1.1);
-    }
+@keyframes floatUp{
+  0%{transform:translateY(0) scale(1) rotate(0deg);}
+  100%{transform:translateY(-120vh) scale(1.4) rotate(360deg);}
+}
 
-    @media (max-width: 768px) {
-      .envelope-container { width: 280px; height: 210px; }
-      .letter { padding: 20px 18px; font-size: 0.98rem; }
-      .letter h2 { font-size: 2.8rem; }
-      .letter .big-question { font-size: 3rem; }
-      h1:not(.letter h2):not(.letter .big-question) { font-size: 2.8rem; }
-      .yes-btn-big { padding: 16px 50px; font-size: 1.35rem; }
-    }
-  </style>
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(25px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@media(max-width:768px){
+  .envelope-wrapper{width:280px;height:220px;}
+  .letter{font-size:.95rem;}
+  .big-question{font-size:2.6rem;}
+  h1{font-size:2.8rem;}
+}
+</style>
 </head>
+
 <body>
 
-  <!-- Pantalla principal - Carta -->
-  <div id="home" class="section active">
-    <div class="envelope-container" onclick="openEnvelope()">
-      <div class="envelope" id="envelope">
-        <div class="flap"></div>
-        <div class="envelope-body"></div>
-        <div class="seal">💌</div>
-      </div>
-      <div class="letter" id="letter">
-        <h2>Hola Maria Jose</h2>
-        <p>Sé que llevamos poco tiempo conociéndonos y que capaz es muy rápido pasar una fecha importante juntos.</p>
-        <p>Sé que suena un poco cringe todo lo que estoy escribiendo, pero sobre todo sé que me encantaría demasiado que estés conmigo ese día, así como quiero seguir conociendo todo sobre ti</p>
-        <div class="big-question">¿Te gustaría pasar el 14 de febrero conmigo? 💕</div>
-        <button class="yes-btn-big" onclick="event.stopPropagation(); showSectionAfterYes()">💖 SÍ</button>
-      </div>
-    </div>
-    <div class="instruction">Haz clic en el sobre para abrir tu carta 💌</div>
-  </div>
+<!-- HOME CARTA -->
+<div id="home" class="section active">
 
-  <!-- Sección menú (transición después del sí) -->
-  <div id="menu" class="section">
-    <h1 class="fade-in">Ahora... es hora de elegir el menú de ese día 🍽️❤️</h1>
-    <div class="card-container">
-      <div class="card" onclick="foodChoice('🍝 Lasaña')">
-        <div style="font-size:50px;">🍝</div>
-        <h3>Lasaña</h3>
-      </div>
-      <div class="card" onclick="foodChoice('🍔 Hamburguesas con papas')">
-        <div style="font-size:50px;">🍔</div>
-        <h3>Hamburguesas</h3>
-      </div>
-      <div class="card" onclick="foodChoice('🍕 Pizza')">
-        <div style="font-size:50px;">🍕</div>
-        <h3>Pizza</h3>
-      </div>
+  <div class="envelope-wrapper" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="envelope-body"></div>
+      <div class="seal">💖</div>
     </div>
-    <h2 id="foodMessage" style="margin-top:40px; min-height:1.5em;"></h2>
-    <button id="confirmBtn" style="display:none;" onclick="confirmarEleccion()">Confirmar por WhatsApp 💌</button>
-  </div>
 
-  <!-- Sección No (trampa) -->
-  <div id="noSection" class="section">
-    <h1>Creo que apretaste mal el Sí 😏</h1>
-    <h1 style="margin-top:25px;">¿Quieres ser Mi 14 f?</h1>
-    <div class="buttons" style="margin-top:25px;">
-      <button class="yes" onclick="showSection('menu')">💖 Sí</button>
-      <button class="yes" onclick="showSection('menu')">💖 Sí</button>
+    <div class="letter">
+      <h2>Hola Maria Jose</h2>
+
+      <p>Sé que llevamos poco tiempo conociéndonos y que capaz es muy rápido pasar una fecha importante juntos.</p>
+
+      <p>Sé que suena un poco cringe todo lo que estoy escribiendo, pero sobre todo sé que me encantaría demasiado que estés conmigo ese día, así como quiero seguir conociendo todo sobre ti</p>
+
+      <div class="big-question">
+        💕 ¿Te gustaría pasar el 14 de febrero conmigo? 💕
+      </div>
+
+      <button class="yes-btn-big" onclick="event.stopPropagation(); aceptarSi()">💖 SÍ</button>
     </div>
   </div>
 
-  <!-- Audio -->
-  <audio id="romanticMusic" loop>
-    <source src="https://assets.codepen.io/605876/Die+For+You+-+The+Weeknd+(instrumental+example).mp3" type="audio/mpeg">
-    Tu navegador no soporta audio.
-  </audio>
+  <div class="instruction">Haz clic en el sobre para abrir tu carta 💌</div>
+</div>
 
-  <script>
-    let escapeCount = 0;
-    const maxEscapes = 3;
-    let comidaElegida = "";
+<!-- MENU -->
+<div id="menu" class="section">
+  <h1>Ahora... es hora de elegir el menú de ese día 🍽️❤️</h1>
 
-    function openEnvelope() {
-      const envelope = document.getElementById('envelope');
-      envelope.classList.add('open');
-      createHearts(15);
-      // Desactivamos el clic en el contenedor para que no vuelva a abrir
-      document.querySelector('#home .envelope-container').onclick = null;
-    }
+  <div class="card-container">
+    <div class="card" onclick="foodChoice('🍝 Lasaña')">
+      <div style="font-size:50px;">🍝</div>
+      <h3>Lasaña</h3>
+    </div>
 
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(sec => {
-        sec.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
+    <div class="card" onclick="foodChoice('🍔 Hamburguesas con papas')">
+      <div style="font-size:50px;">🍔</div>
+      <h3>Hamburguesas</h3>
+    </div>
 
-      if (id === 'menu') {
-        const audio = document.getElementById('romanticMusic');
-        audio.volume = 0.20;
-        audio.play().catch(() => console.log("Reproducción bloqueada"));
-      }
-    }
+    <div class="card" onclick="foodChoice('🍕 Pizza')">
+      <div style="font-size:50px;">🍕</div>
+      <h3>Pizza</h3>
+    </div>
+  </div>
 
-    function showSectionAfterYes() {
-      showSection('menu');
-    }
+  <h2 id="foodMessage" style="margin-top:40px; min-height:1.5em;"></h2>
+  <button id="confirmBtn" style="display:none;" onclick="confirmarEleccion()">Confirmar por WhatsApp 💌</button>
+</div>
 
-    // Botón No
-    const noBtn = document.createElement('button');
-    noBtn.className = 'no';
-    noBtn.textContent = '💔 No';
-    noBtn.style.marginTop = '30px';
-    noBtn.style.display = 'none'; // Lo mostramos solo si se necesita en otras secciones
-    document.getElementById('noSection').querySelector('.buttons').appendChild(noBtn);
+<audio id="romanticMusic" loop>
+  <source src="https://assets.codepen.io/605876/Die+For+You+-+The+Weeknd+(instrumental+example).mp3" type="audio/mpeg">
+</audio>
 
-    function moveButton() {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 60;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 60;
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
-      noBtn.style.left = randomX + 'px';
-      noBtn.style.top = randomY + 'px';
-      noBtn.style.position = 'absolute';
-    }
+<script>
+let comidaElegida="";
 
-    noBtn.addEventListener('click', () => {
-      if (escapeCount < maxEscapes) {
-        escapeCount++;
-        moveButton();
-        createHearts(8);
-      } else {
-        // Ya se rindió, podría ir a menú directamente o mantener trampa
-      }
-    });
+function openEnvelope(){
+  const envelope=document.getElementById('envelope');
+  envelope.classList.add('open');
+  createHearts(20);
+  document.querySelector('.envelope-wrapper').onclick=null;
+}
 
-    document.addEventListener('mousemove', (e) => {
-      if (escapeCount >= maxEscapes || !noBtn.offsetParent) return;
-      const rect = noBtn.getBoundingClientRect();
-      const dist = Math.hypot(e.clientX - (rect.left + rect.width/2), e.clientY - (rect.top + rect.height/2));
-      if (dist < 140) moveButton();
-    });
+function aceptarSi(){
+  const audio=document.getElementById('romanticMusic');
+  audio.volume=0.2;
+  audio.play().catch(()=>{});
+  showSection('menu');
+}
 
-    // Elección comida
-    function foodChoice(food) {
-      comidaElegida = food;
-      const msg = document.getElementById('foodMessage');
-      msg.innerText = 'Excelente elección ❤️ ' + food + ' !';
-      msg.classList.remove('fade-in');
-      void msg.offsetWidth;
-      msg.classList.add('fade-in');
-      createHearts(25);
-      document.getElementById('confirmBtn').style.display = 'block';
-    }
+function showSection(id){
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-    function confirmarEleccion() {
-      if (!comidaElegida) {
-        alert('¡Primero elegí algo rico! 🍽️');
-        return;
-      }
-      const mensaje = `ola, elegi: ${comidaElegida} ❤️\n¿Me lo preparás? 😘`;
-      const numero = "56949279462";
-      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
-    }
+function foodChoice(food){
+  comidaElegida=food;
+  const msg=document.getElementById('foodMessage');
+  msg.innerText='Excelente elección ❤️ '+food+' !';
+  msg.classList.add('fadeIn');
+  createHearts(25);
+  document.getElementById('confirmBtn').style.display='block';
+}
 
-    // Corazones
-    function createHearts(num = 5) {
-      for (let i = 0; i < num; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerText = ['💖','❤️','💕','💗','💞'][Math.floor(Math.random()*5)];
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.fontSize = (Math.random() * 28 + 18) + 'px';
-        heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-        heart.style.animationDelay = Math.random() * 3 + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 10000);
-      }
-    }
+function confirmarEleccion(){
+  if(!comidaElegida){
+    alert('¡Primero elegí algo rico! 🍽️');
+    return;
+  }
+  const mensaje=`ola, elegi: ${comidaElegida} ❤️\n¿Me lo preparás? 😘`;
+  const numero="56949279462";
+  const url=`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url,'_blank');
+}
 
-    setInterval(() => createHearts(1), 1100);
+function createHearts(num=5){
+  for(let i=0;i<num;i++){
+    const heart=document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerText=['💖','❤️','💕','💗','💞'][Math.floor(Math.random()*5)];
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.fontSize=(Math.random()*28+18)+'px';
+    heart.style.animationDuration=(Math.random()*5+5)+'s';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),10000);
+  }
+}
 
-    // Posición inicial botón No (si aparece)
-    setTimeout(() => {
-      if (noBtn) {
-        noBtn.style.position = 'relative';
-        noBtn.style.left = '0';
-        noBtn.style.top = '0';
-      }
-    }, 500);
-  </script>
+setInterval(()=>createHearts(1),1100);
+</script>
+
 </body>
 </html>
