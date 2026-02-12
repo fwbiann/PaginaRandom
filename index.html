@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi 14 💖</title>
+<title>Para Maria jose:) </title>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -202,15 +202,54 @@ function showSection(id){
   document.getElementById(id).classList.add('active');
 }
 
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-  noBtn.style.position="relative";
-  noBtn.style.left=Math.random()*50-25+"px";
-  noBtn.style.top=Math.random()*30-15+"px";
+<script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(sec=>{
+    sec.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+}
+
+const noBtn = document.getElementById("noBtn");
+
+// Función para mover el botón a cualquier parte visible
+function moveButton(){
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
+
+// Se mueve cuando el mouse se acerca
+document.addEventListener("mousemove", (e) => {
+  const rect = noBtn.getBoundingClientRect();
+  const distance = Math.hypot(
+    e.clientX - (rect.left + rect.width/2),
+    e.clientY - (rect.top + rect.height/2)
+  );
+
+  if(distance < 120){ // distancia de reacción
+    moveButton();
+  }
 });
-noBtn.addEventListener("click",()=>{
+
+// Para celular
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  moveButton();
+});
+
+// Si logra hacer click (muy difícil 😏)
+noBtn.addEventListener("click", ()=>{
   showSection("noSection");
 });
+</script>
+
 
 function foodChoice(food){
   const msg=document.getElementById("foodMessage");
