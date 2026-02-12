@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sorpresa </title>
+  <title>Sorpresa 💕</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -46,15 +46,16 @@
     }
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       margin-bottom: 30px;
       line-height: 1.1;
     }
     .buttons {
       display: flex;
-      gap: 20px;
+      gap: 30px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
     }
     button {
       padding: 14px 36px;
@@ -73,12 +74,14 @@
       background: white;
       color: #ff2e63;
       font-weight: bold;
+      padding: 18px 48px;          /* Más grande que el No */
+      font-size: 1.25rem;
     }
     .no {
       background: #ff2e63;
       color: white;
-      position: fixed;
-      z-index: 100;
+      padding: 14px 36px;           /* Tamaño normal */
+      position: relative;           /* Cambiado de fixed → relative para que empiece al lado */
       transition: all 0.25s ease-out;
     }
     /* Cards */
@@ -126,10 +129,24 @@
       0% { transform: translateY(0) scale(1) rotate(0deg); }
       100% { transform: translateY(-120vh) scale(1.4) rotate(360deg); }
     }
+    #confirmBtn {
+      margin-top: 35px;
+      padding: 16px 48px;
+      font-size: 1.15rem;
+      background: #ffffff;
+      color: #ff2e63;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    #confirmBtn:hover {
+      transform: scale(1.1);
+    }
     @media (max-width: 768px) {
-      h1 { font-size: 2.6rem; }
+      h1 { font-size: 2.8rem; }
       .card { width: 85%; max-width: 280px; }
-      button { padding: 12px 28px; font-size: 1rem; }
+      button { padding: 14px 32px; font-size: 1.05rem; }
+      .yes { padding: 16px 44px; font-size: 1.2rem; }
+      .buttons { gap: 20px; }
     }
   </style>
 </head>
@@ -152,7 +169,7 @@
 
   <!-- Sección menú -->
   <div id="menu" class="section">
-    <h1>💕 Es Hora de elegir el menu</h1>
+    <h1>💕 Es Hora de elegir el menú</h1>
     <div class="card-container">
       <div class="card" onclick="foodChoice('🍝 Lasaña')">
         <div style="font-size:50px;">🍝</div>
@@ -168,6 +185,7 @@
       </div>
     </div>
     <h2 id="foodMessage" style="margin-top:40px; min-height:1.5em;"></h2>
+    <button id="confirmBtn" style="display:none;" onclick="confirmarEleccion()">Confirmar por WhatsApp 💌</button>
   </div>
 
   <!-- Sección No (trampa) -->
@@ -180,63 +198,110 @@
     </div>
   </div>
 
+  <!-- Audio romántico (Die For You - The Weeknd) -->
+  <audio id="romanticMusic" loop>
+    <!-- Puedes reemplazar esta URL por otro link directo si lo prefieres -->
+    <source src="https://www.youtube.com/watch?v=JGwWNGJdvx8" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
   <script>
+    let escapeCount = 0;
+    const maxEscapes = 3;
+    let comidaElegida = "";
+
     function showSection(id) {
       document.querySelectorAll('.section').forEach(sec => {
         sec.classList.remove('active');
       });
       document.getElementById(id).classList.add('active');
+
+      // Reproducir música solo al ir a 'special' (cuando dice Sí)
+      if (id === 'special') {
+        const audio = document.getElementById('romanticMusic');
+        audio.volume = 0.20; // Volumen bajo (20%)
+        audio.play().catch(() => {
+          // En algunos navegadores necesita interacción extra → lo intentamos de nuevo en clicks
+          console.log("Reproducción bloqueada, esperando interacción");
+        });
+      }
     }
 
-    // Botón No ultra difícil
+    // Botón No - lógica de escapes limitados
     const noBtn = document.getElementById("noBtn");
 
     function moveButton() {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 40;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+      const maxX = window.innerWidth - noBtn.offsetWidth - 60;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 60;
       const randomX = Math.random() * maxX;
       const randomY = Math.random() * maxY;
       noBtn.style.left = randomX + "px";
       noBtn.style.top = randomY + "px";
+      noBtn.style.transform = "none"; // quitamos translate inicial
     }
 
-    // Mover cuando el cursor se acerca (PC)
+    noBtn.addEventListener("click", (e) => {
+      if (escapeCount < maxEscapes) {
+        e.preventDefault();
+        escapeCount++;
+        moveButton();
+        createHearts(8); // corazoncitos al escapar
+      } else {
+        // Después de 3 escapes → va a la sección trampa
+        showSection("noSection");
+      }
+    });
+
+    // Movimiento al acercar mouse (PC)
     document.addEventListener("mousemove", (e) => {
-      if (!noBtn) return;
+      if (escapeCount >= maxEscapes) return;
       const rect = noBtn.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY);
       
-      if (distance < 140) {  // radio de escape (ajusta si querés más difícil)
+      if (distance < 130) {
         moveButton();
       }
     });
 
-    // Mover al tocar o acercar dedo (móvil)
+    // Móvil - touch
     noBtn.addEventListener("touchstart", (e) => {
+      if (escapeCount >= maxEscapes) return;
       e.preventDefault();
       moveButton();
     });
 
     noBtn.addEventListener("touchmove", (e) => {
+      if (escapeCount >= maxEscapes) return;
       e.preventDefault();
-      if (Math.random() > 0.3) moveButton(); // chance de escapar al mover dedo
-    });
-
-    // Si de alguna forma lo clickea...
-    noBtn.addEventListener("click", () => {
-      showSection("noSection");
+      if (Math.random() > 0.4) moveButton();
     });
 
     // Elección de comida
     function foodChoice(food) {
+      comidaElegida = food;
       const msg = document.getElementById("foodMessage");
       msg.innerText = "Excelente elección ❤️ " + food + " !";
       msg.classList.remove("fade-in");
-      void msg.offsetWidth; // reinicia animación
+      void msg.offsetWidth;
       msg.classList.add("fade-in");
       createHearts(25);
+
+      // Mostrar botón de WhatsApp
+      document.getElementById("confirmBtn").style.display = "block";
+    }
+
+    function confirmarEleccion() {
+      if (!comidaElegida) {
+        alert("¡Primero elegí algo rico! 🍽️");
+        return;
+      }
+
+      const mensaje = `ola, elegi: ${comidaElegida} ❤️\n¿Me lo preparás? 😘`;
+      const numero = "56949279462";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
     }
 
     // Corazones
@@ -257,11 +322,12 @@
     // Corazones suaves de fondo
     setInterval(() => createHearts(1), 900);
 
-    // Posición inicial del botón No (centrado al cargar)
+    // Posición inicial del botón No (al lado del Sí, centrado en la zona de botones)
     setTimeout(() => {
-      noBtn.style.left = "50%";
-      noBtn.style.top = "60%";
-      noBtn.style.transform = "translate(-50%, -50%)";
+      noBtn.style.position = "relative";
+      noBtn.style.left = "0";
+      noBtn.style.top = "0";
+      noBtn.style.transform = "none";
     }, 300);
   </script>
 </body>
