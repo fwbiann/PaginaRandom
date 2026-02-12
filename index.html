@@ -1,242 +1,268 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sorpresa 💕</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sorpresa 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #ff6b9d, #ff2e63, #d81b60, #ad1457);
+      background-size: 300% 300%;
+      animation: gradientBG 14s ease infinite;
+      color: white;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .section {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.9s ease;
+    }
+    .section.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    /* Sobre */
+    .envelope-wrapper {
+      perspective: 1800px;
+      width: 380px;
+      height: 280px;
+      position: relative;
+      cursor: pointer;
+      margin: 40px auto;
+    }
+    .envelope {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .envelope.open {
+      transform: rotateX(30deg) translateY(-60px);
+    }
+    .envelope-body {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient(145deg, #fff0f5, #ffe4f0);
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    }
+    .flap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient(to bottom, #ff8fab, #ff4d6d);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+    }
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+    .seal {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      background: #ff2e63;
+      border-radius: 50%;
+      border: 7px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.55);
+      z-index: 5;
+    }
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+    /* Carta - FIX total para corte y tapado */
+    .letter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.92);
+      width: 94%;
+      max-width: 600px;
+      min-height: 62vh;
+      max-height: 88vh;
+      background: linear-gradient(135deg, #ffffff 0%, #fff8fa 100%);
+      border-radius: 32px;
+      box-shadow: 0 60px 140px rgba(0,0,0,0.45);
+      padding: 80px 55px 70px;   /* mucho padding arriba para evitar corte */
+      color: #222;
+      opacity: 0;
+      transition: all 1.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: left;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      z-index: 20;               /* muy por encima del sobre */
+    }
+    .envelope.open + .letter {
+      opacity: 1;
+      transform: translate(-50%, -180%) scale(1.04);  /* sube MUCHO más para no tapar */
+    }
+    .letter::-webkit-scrollbar {
+      width: 8px;
+    }
+    .letter::-webkit-scrollbar-thumb {
+      background: #ff4d6d;
+      border-radius: 10px;
+    }
+    .letter h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4.5rem;
+      color: #d81b60;
+      text-align: center;
+      margin-bottom: 40px;
+      text-shadow: 0 3px 12px rgba(216,27,96,0.3);
+    }
+    .letter p {
+      margin-bottom: 2em;
+      line-height: 1.9;
+      font-size: 1.18rem;
+      font-weight: 400;
+      color: #333;
+      letter-spacing: 0.3px;
+    }
+    .big-question {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.3rem;
+      color: #c2185b;
+      text-align: center;
+      margin: 60px 0 45px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+    .yes-btn-big {
+      display: block;
+      margin: 0 auto;
+      padding: 22px 100px;
+      font-size: 1.9rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #ff2e63, #f50057);
+      color: white;
+      border: none;
+      border-radius: 80px;
+      cursor: pointer;
+      box-shadow: 0 16px 45px rgba(245,0,87,0.5);
+      transition: all 0.4s ease;
+    }
+    .yes-btn-big:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 25px 60px rgba(245,0,87,0.65);
+    }
 
-body{
-  background:linear-gradient(135deg,#ff6b9d,#ff2e63,#ff0844);
-  background-size:400% 400%;
-  animation:gradientBG 12s ease infinite;
-  color:white;
-  height:100vh;
-  position:relative;
-  overflow:hidden;
-}
+    /* Menú */
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4.2rem;
+      color: #fff;
+      text-shadow: 0 5px 20px rgba(0,0,0,0.6);
+      margin-bottom: 50px;
+    }
+    .card-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 40px auto;
+      max-width: 1000px;
+    }
+    .card {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 35px 25px;
+      border-radius: 28px;
+      width: 260px;
+      cursor: pointer;
+      transition: all 0.45s ease;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    .card:hover {
+      transform: translateY(-15px) scale(1.08);
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    }
+    .card div {
+      font-size: 6rem;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.6rem;
+      color: white;
+    }
+    #foodMessage {
+      font-size: 2.2rem;
+      margin: 60px 0 50px;
+      min-height: 3.5rem;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.7);
+    }
+    #confirmBtn {
+      padding: 20px 70px;
+      font-size: 1.4rem;
+      background: white;
+      color: #d81b60;
+      font-weight: 700;
+      border: none;
+      border-radius: 70px;
+      cursor: pointer;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+      transition: all 0.35s ease;
+    }
+    #confirmBtn:hover {
+      background: #fff0f5;
+      transform: translateY(-4px);
+    }
 
-@keyframes gradientBG{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-.section{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .8s ease;
-}
-
-.section.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.envelope-wrapper{
-  perspective:1600px;
-  width:360px;
-  height:260px;
-  position:relative;
-  cursor:pointer;
-}
-
-.envelope{
-  width:100%;
-  height:100%;
-  position:relative;
-  transform-style:preserve-3d;
-  transition:transform 1.2s ease;
-}
-
-.envelope.open{
-  transform:rotateX(20deg) translateY(-30px);
-}
-
-.envelope-body{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:65%;
-  background:linear-gradient(145deg,#ffe3ec,#fff6fa);
-  border-radius:0 0 30px 30px;
-  box-shadow:0 20px 60px rgba(0,0,0,.4);
-}
-
-.flap{
-  position:absolute;
-  top:0;
-  width:100%;
-  height:55%;
-  background:linear-gradient(to bottom,#ff8fab,#ff4d6d);
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  transform-origin:top;
-  transition:transform 1.2s ease;
-  border-top-left-radius:30px;
-  border-top-right-radius:30px;
-}
-
-.envelope.open .flap{
-  transform:rotateX(180deg);
-}
-
-.seal{
-  position:absolute;
-  top:42%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:75px;
-  height:75px;
-  background:#ff2e63;
-  border-radius:50%;
-  border:5px solid white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:2rem;
-  box-shadow:0 8px 25px rgba(0,0,0,.5);
-}
-
-.letter{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) scale(.85);
-  width:95%;
-  max-width:520px;
-  height:75vh;
-  background:#ffffff;
-  border-radius:25px;
-  box-shadow:0 40px 90px rgba(0,0,0,.35);
-  padding:50px 35px;
-  color:#222;
-  opacity:0;
-  transition:all 1.6s ease .4s;
-  text-align:left;
-  overflow-y:auto;
-  scroll-behavior:smooth;
-}
-
-.envelope.open + .letter{
-  opacity:1;
-  transform:translate(-50%,-120%) scale(1);
-}
-
-.letter h2{
-  font-family:'Great Vibes',cursive;
-  font-size:3.5rem;
-  color:#ff2e63;
-  text-align:center;
-  margin-bottom:30px;
-}
-
-.letter p{
-  margin-bottom:1.6em;
-  line-height:1.9;
-  font-size:1.08rem;
-}
-
-.big-question{
-  font-family:'Great Vibes',cursive;
-  font-size:3rem;
-  color:#ff0844;
-  text-align:center;
-  margin:40px 0 30px;
-}
-
-.yes-btn-big{
-  display:block;
-  margin:10px auto 0;
-  padding:18px 70px;
-  font-size:1.6rem;
-  background:#ff2e63;
-  color:white;
-  border:none;
-  border-radius:60px;
-  cursor:pointer;
-  box-shadow:0 12px 35px rgba(0,0,0,.4);
-  transition:.3s ease;
-}
-
-.yes-btn-big:hover{
-  transform:scale(1.12);
-  background:#ff0844;
-}
-
-h1{
-  font-family:'Great Vibes',cursive;
-  font-size:3.4rem;
-  margin-bottom:30px;
-}
-
-.card-container{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin-top:30px;
-}
-
-.card{
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(10px);
-  padding:25px;
-  border-radius:20px;
-  width:220px;
-  cursor:pointer;
-  transition:.4s ease;
-  box-shadow:0 10px 25px rgba(0,0,0,.3);
-}
-
-#confirmBtn{
-  margin-top:35px;
-  padding:16px 48px;
-  font-size:1.15rem;
-  background:#fff;
-  color:#ff2e63;
-  font-weight:600;
-  border:none;
-  border-radius:50px;
-  cursor:pointer;
-}
-
-.heart{
-  position:absolute;
-  bottom:-60px;
-  font-size:24px;
-  animation:floatUp 7s linear infinite;
-  opacity:.8;
-  pointer-events:none;
-}
-
-@keyframes floatUp{
-  0%{transform:translateY(0) scale(1) rotate(0deg);} 
-  100%{transform:translateY(-120vh) scale(1.4) rotate(360deg);} 
-}
-</style>
+    /* Corazones */
+    .heart {
+      position: absolute;
+      bottom: -90px;
+      font-size: 30px;
+      animation: floatUp 9s linear infinite;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(1) rotate(0deg); }
+      100% { transform: translateY(-150vh) scale(1.6) rotate(540deg); }
+    }
+  </style>
 </head>
-
 <body>
 
 <div id="home" class="section active">
-
   <div class="envelope-wrapper" onclick="openEnvelope()">
     <div class="envelope" id="envelope">
       <div class="flap"></div>
@@ -245,114 +271,99 @@ h1{
     </div>
 
     <div class="letter">
-      <h2>Hola Maria Jose</h2>
-
-      <p>Sé que llevamos poco tiempo conociéndonos y que capaz es muy rápido pasar una fecha importante juntos. Sé que suena un poco cringe todo lo que estoy escribiendo, pero sobre todo sé que me encantaría demasiado que estés conmigo ese día, así como quiero seguir conociendo todo sobre ti.</p>
-
+      <h2>Hola María José 💕</h2>
+      <p>
+        Sé que llevamos poco tiempo conociéndonos y que quizás sea muy rápido pasar una fecha importante juntos. Sé que suena un poco cursi (o cringe, como dirían algunos) todo lo que estoy escribiendo, pero sobre todo sé que me encantaría muchísimo que estuvieras conmigo ese día.
+      </p>
+      <p>
+        Cada vez que hablamos me quedo con ganas de más: de saber qué te hace reír, qué te emociona, qué te mueve. Y cuando pienso en el 14 de febrero, la persona con quien más ilusión me hace compartirlo… sos vos.
+      </p>
       <div class="big-question">
-        💕 ¿Te gustaría pasar el 14 de febrero conmigo? 💕
+        💕 ¿Te gustaría pasar el Día de San Valentín conmigo? 💕
       </div>
-
-      <button class="yes-btn-big" onclick="event.stopPropagation(); aceptarSi()">💖 SÍ</button>
-
+      <button class="yes-btn-big" onclick="event.stopPropagation(); aceptarSi()">
+        💖 SÍ, quiero
+      </button>
     </div>
   </div>
-
-  <div style="margin-top:20px;">Haz clic en el sobre para abrir tu carta 💌</div>
+  <div style="margin-top: 35px; font-size: 1.35rem; opacity: 0.95;">
+    Toca el sobre para abrir tu carta 💌
+  </div>
 </div>
 
 <div id="menu" class="section">
-  <h1>Ahora… es hora de elegir el menú 🍽️❤️</h1>
-
+  <h1>Ahora… elegí el menú 🍽️❤️</h1>
   <div class="card-container">
     <div class="card" onclick="foodChoice('🍝 Lasaña')">
-      <div style="font-size:50px;">🍝</div>
+      <div>🍝</div>
       <h3>Lasaña</h3>
     </div>
-
-    <div class="card" onclick="foodChoice('🍔 Hamburguesas con papas')">
-      <div style="font-size:50px;">🍔</div>
+    <div class="card" onclick="foodChoice('🍔 Hamburguesas + papas')">
+      <div>🍔</div>
       <h3>Hamburguesas</h3>
     </div>
-
     <div class="card" onclick="foodChoice('🍕 Pizza')">
-      <div style="font-size:50px;">🍕</div>
+      <div>🍕</div>
       <h3>Pizza</h3>
     </div>
   </div>
-
-  <h2 id="foodMessage" style="margin-top:40px;"></h2>
-  <button id="confirmBtn" style="display:none;" onclick="confirmarEleccion()">Confirmar por WhatsApp 💌</button>
-</div>
-
-<div id="final" class="section">
-  <h1>Entonces… es una cita ❤️</h1>
-  <p style="margin-top:20px; font-size:1.2rem; max-width:500px;">
-    Prometo que haré que ese día sea especial.
-    Gracias por decir que sí.
-  </p>
+  <h2 id="foodMessage"></h2>
+  <button id="confirmBtn" style="display:none;" onclick="confirmarEleccion()">
+    Enviar por WhatsApp 💌
+  </button>
 </div>
 
 <script>
-let comidaElegida="";
+let comidaElegida = "";
 
-function openEnvelope(){
+function openEnvelope() {
   document.getElementById('envelope').classList.add('open');
-  createHearts(20);
-  document.querySelector('.envelope-wrapper').onclick=null;
+  createHearts(25);
+  document.querySelector('.envelope-wrapper').onclick = null;
 }
 
-function aceptarSi(){
+function aceptarSi() {
   showSection('menu');
 }
 
-function showSection(id){
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-function foodChoice(food){
-  comidaElegida=food;
-  const msg=document.getElementById('foodMessage');
-  msg.innerText='Excelente elección ❤️ '+food+' !';
-  createHearts(25);
-  document.getElementById('confirmBtn').style.display='block';
+function foodChoice(food) {
+  comidaElegida = food;
+  document.getElementById('foodMessage').innerText = `¡Genial! Vamos con ${food} ❤️`;
+  createHearts(30);
+  document.getElementById('confirmBtn').style.display = 'block';
 }
 
-function confirmarEleccion(){
-  if(!comidaElegida){
+function confirmarEleccion() {
+  if (!comidaElegida) {
     alert('¡Primero elegí algo rico! 🍽️');
     return;
   }
-
-  const mensaje=`ola 💕\nElegí ${comidaElegida} ❤️\n 😘`;
-  const numero="56949279462";
-  const url=`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-
-  showFinalScreen();
-  setTimeout(()=>window.open(url,'_blank'),1500);
+  const mensaje = `olaaa ❤️\n elegí: ${comidaElegida}\n😘`;
+  const numero = "56949279462";
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
 }
 
-function showFinalScreen(){
-  showSection('final');
-  createHearts(40);
-}
-
-function createHearts(num=5){
-  for(let i=0;i<num;i++){
-    const heart=document.createElement('div');
+function createHearts(num = 6) {
+  for (let i = 0; i < num; i++) {
+    const heart = document.createElement('div');
     heart.classList.add('heart');
-    heart.innerText=['💖','❤️','💕','💗','💞'][Math.floor(Math.random()*5)];
-    heart.style.left=Math.random()*100+'vw';
-    heart.style.fontSize=(Math.random()*28+18)+'px';
-    heart.style.animationDuration=(Math.random()*5+5)+'s';
+    heart.innerText = ['💖','❤️','💕','💗','💞','💘'][Math.floor(Math.random()*6)];
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random() * 36 + 22) + 'px';
+    heart.style.animationDuration = (Math.random() * 7 + 7) + 's';
+    heart.style.animationDelay = Math.random() * 3 + 's';
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),10000);
+    setTimeout(() => heart.remove(), 14000);
   }
 }
 
-setInterval(()=>createHearts(1),1100);
+setInterval(() => createHearts(1), 1400);
 </script>
-
 </body>
 </html>
