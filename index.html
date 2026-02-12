@@ -16,13 +16,13 @@
 }
 
 body{
-  overflow:hidden;
   background:linear-gradient(135deg,#ff6b9d,#ff2e63,#ff0844);
   background-size:400% 400%;
   animation:gradientBG 12s ease infinite;
   color:white;
   height:100vh;
   position:relative;
+  overflow:hidden;
 }
 
 @keyframes gradientBG{
@@ -50,11 +50,11 @@ body{
   pointer-events:auto;
 }
 
-/* ====== SOBRE NUEVO ESTILO ====== */
+/* ===== SOBRE ===== */
 
 .envelope-wrapper{
-  perspective:1500px;
-  width:340px;
+  perspective:1600px;
+  width:360px;
   height:260px;
   position:relative;
   cursor:pointer;
@@ -69,7 +69,7 @@ body{
 }
 
 .envelope.open{
-  transform:rotateX(18deg) translateY(-40px);
+  transform:rotateX(20deg) translateY(-30px);
 }
 
 .envelope-body{
@@ -77,9 +77,9 @@ body{
   bottom:0;
   width:100%;
   height:65%;
-  background:linear-gradient(145deg,#ffd6e8,#fff0f6);
-  border-radius:0 0 25px 25px;
-  box-shadow:0 15px 40px rgba(0,0,0,.35);
+  background:linear-gradient(145deg,#ffe3ec,#fff6fa);
+  border-radius:0 0 30px 30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
 }
 
 .flap{
@@ -91,9 +91,8 @@ body{
   clip-path:polygon(0 0,100% 0,50% 100%);
   transform-origin:top;
   transition:transform 1.2s ease;
-  border-top-left-radius:25px;
-  border-top-right-radius:25px;
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  border-top-left-radius:30px;
+  border-top-right-radius:30px;
 }
 
 .envelope.open .flap{
@@ -105,77 +104,87 @@ body{
   top:42%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:70px;
-  height:70px;
+  width:75px;
+  height:75px;
   background:#ff2e63;
   border-radius:50%;
-  border:4px solid white;
+  border:5px solid white;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:2rem;
-  box-shadow:0 5px 20px rgba(0,0,0,.4);
+  box-shadow:0 8px 25px rgba(0,0,0,.5);
 }
 
-/* ====== CARTA ====== */
+/* ===== CARTA BLANCA PREMIUM ===== */
 
 .letter{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%) scale(.8);
-  width:92%;
-  height:80%;
-  background:white;
-  border-radius:18px;
-  box-shadow:0 25px 60px rgba(0,0,0,.45);
-  padding:30px 25px;
-  color:#333;
+  transform:translate(-50%,-50%) scale(.85);
+  width:95%;
+  max-width:520px;
+  height:75vh;
+  background:#ffffff;
+  border-radius:25px;
+  box-shadow:0 40px 90px rgba(0,0,0,.35);
+  padding:50px 35px;
+  color:#222;
   opacity:0;
-  transition:all 1.4s ease .4s;
+  transition:all 1.6s ease .4s;
   text-align:left;
-  pointer-events:none;
-  overflow:auto;
+  overflow-y:auto;
+  scroll-behavior:smooth;
 }
 
 .envelope.open + .letter{
   opacity:1;
-  transform:translate(-50%,-150%) scale(1.03);
+  transform:translate(-50%,-120%) scale(1);
+}
+
+.letter::-webkit-scrollbar{
+  width:6px;
+}
+
+.letter::-webkit-scrollbar-thumb{
+  background:#ff2e63;
+  border-radius:10px;
 }
 
 .letter h2{
   font-family:'Great Vibes',cursive;
-  font-size:3.2rem;
+  font-size:3.5rem;
   color:#ff2e63;
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:30px;
 }
 
 .letter p{
-  margin-bottom:1.2em;
-  line-height:1.6;
+  margin-bottom:1.6em;
+  line-height:1.9;
+  font-size:1.08rem;
 }
 
 .big-question{
   font-family:'Great Vibes',cursive;
-  font-size:3.4rem;
+  font-size:3rem;
   color:#ff0844;
   text-align:center;
-  margin:35px 0 25px;
-  animation:fadeIn 1.5s ease forwards;
+  margin:40px 0 30px;
 }
 
 .yes-btn-big{
   display:block;
-  margin:20px auto 0;
-  padding:18px 65px;
+  margin:10px auto 0;
+  padding:18px 70px;
   font-size:1.6rem;
   background:#ff2e63;
   color:white;
   border:none;
   border-radius:60px;
   cursor:pointer;
-  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  box-shadow:0 12px 35px rgba(0,0,0,.4);
   transition:.3s ease;
 }
 
@@ -184,17 +193,25 @@ body{
   background:#ff0844;
 }
 
-.instruction{
+.scroll-indicator{
+  text-align:center;
   margin-top:30px;
-  font-size:1.2rem;
-  opacity:.9;
+  font-size:0.9rem;
+  opacity:.6;
+  animation:scrollHint 2s infinite;
 }
 
-/* ====== MENU ====== */
+@keyframes scrollHint{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(6px);}
+  100%{transform:translateY(0);}
+}
+
+/* ===== MENU ===== */
 
 h1{
   font-family:'Great Vibes',cursive;
-  font-size:3.6rem;
+  font-size:3.4rem;
   margin-bottom:30px;
 }
 
@@ -233,6 +250,8 @@ h1{
   cursor:pointer;
 }
 
+/* ===== CORAZONES ===== */
+
 .heart{
   position:absolute;
   bottom:-60px;
@@ -247,23 +266,17 @@ h1{
   100%{transform:translateY(-120vh) scale(1.4) rotate(360deg);}
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(25px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
 @media(max-width:768px){
-  .envelope-wrapper{width:280px;height:220px;}
-  .letter{font-size:.95rem;}
-  .big-question{font-size:2.6rem;}
-  h1{font-size:2.8rem;}
+  .envelope-wrapper{width:300px;height:220px;}
+  .letter{height:78vh;}
+  .big-question{font-size:2.3rem;}
+  h1{font-size:2.6rem;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HOME CARTA -->
 <div id="home" class="section active">
 
   <div class="envelope-wrapper" onclick="openEnvelope()">
@@ -276,24 +289,25 @@ h1{
     <div class="letter">
       <h2>Hola Maria Jose</h2>
 
-      <p>Sé que llevamos poco tiempo conociéndonos y que capaz es muy rápido pasar una fecha importante juntos.</p>
-
-      <p>Sé que suena un poco cringe todo lo que estoy escribiendo, pero sobre todo sé que me encantaría demasiado que estés conmigo ese día, así como quiero seguir conociendo todo sobre ti</p>
+      <p>Sé que llevamos poco tiempo conociéndonos y que capaz es muy rápido pasar una fecha importante juntos. Sé que suena un poco cringe todo lo que estoy escribiendo, pero sobre todo sé que me encantaría demasiado que estés conmigo ese día, así como quiero seguir conociendo todo sobre ti.</p>
 
       <div class="big-question">
         💕 ¿Te gustaría pasar el 14 de febrero conmigo? 💕
       </div>
 
       <button class="yes-btn-big" onclick="event.stopPropagation(); aceptarSi()">💖 SÍ</button>
+
+      <div class="scroll-indicator">
+        Desliza para leer despacio 💌
+      </div>
     </div>
   </div>
 
-  <div class="instruction">Haz clic en el sobre para abrir tu carta 💌</div>
+  <div style="margin-top:20px;">Haz clic en el sobre para abrir tu carta 💌</div>
 </div>
 
-<!-- MENU -->
 <div id="menu" class="section">
-  <h1>Ahora... es hora de elegir el menú de ese día 🍽️❤️</h1>
+  <h1>Ahora… es hora de elegir el menú 🍽️❤️</h1>
 
   <div class="card-container">
     <div class="card" onclick="foodChoice('🍝 Lasaña')">
@@ -312,8 +326,16 @@ h1{
     </div>
   </div>
 
-  <h2 id="foodMessage" style="margin-top:40px; min-height:1.5em;"></h2>
+  <h2 id="foodMessage" style="margin-top:40px;"></h2>
   <button id="confirmBtn" style="display:none;" onclick="confirmarEleccion()">Confirmar por WhatsApp 💌</button>
+</div>
+
+<div id="final" class="section">
+  <h1>Entonces… es una cita ❤️</h1>
+  <p style="margin-top:20px; font-size:1.2rem; max-width:500px;">
+    Prometo que haré que ese día sea especial.
+    Gracias por decir que sí.
+  </p>
 </div>
 
 <audio id="romanticMusic" loop>
@@ -324,8 +346,7 @@ h1{
 let comidaElegida="";
 
 function openEnvelope(){
-  const envelope=document.getElementById('envelope');
-  envelope.classList.add('open');
+  document.getElementById('envelope').classList.add('open');
   createHearts(20);
   document.querySelector('.envelope-wrapper').onclick=null;
 }
@@ -346,7 +367,6 @@ function foodChoice(food){
   comidaElegida=food;
   const msg=document.getElementById('foodMessage');
   msg.innerText='Excelente elección ❤️ '+food+' !';
-  msg.classList.add('fadeIn');
   createHearts(25);
   document.getElementById('confirmBtn').style.display='block';
 }
@@ -356,10 +376,18 @@ function confirmarEleccion(){
     alert('¡Primero elegí algo rico! 🍽️');
     return;
   }
-  const mensaje=`ola, elegi: ${comidaElegida} ❤️\n¿Me lo preparás? 😘`;
+
+  const mensaje=`ola 💕\nElegí ${comidaElegida} ❤️\n 😘`;
   const numero="56949279462";
   const url=`https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-  window.open(url,'_blank');
+
+  showFinalScreen();
+  setTimeout(()=>window.open(url,'_blank'),1500);
+}
+
+function showFinalScreen(){
+  showSection('final');
+  createHearts(40);
 }
 
 function createHearts(num=5){
